@@ -1,0 +1,355 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>贪吃蛇</title>
+</head>
+<style>
+	*{
+		padding:0;
+		margin:0;
+		list-style: none;
+	}
+	body{
+		font-family: "苹方";
+		font-size: 16px;
+		color:white;
+		/*overflow: hidden;*/
+		background: url(img/12345.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+
+	}
+	.sceen{
+		width:600px;
+		height:600px;
+		position:absolute;
+		margin:auto;
+		left:0;
+		right:0;
+		bottom:0;
+		top:10px;
+		/*border:1px solid black;*/
+		border-right:0;
+		border-bottom: 0;
+		background:#BB8128;
+		/*box-shadow: 3px 3px 3px 3px #1C8C83,-3px -3px 3px 3px #1C8C83;*/
+	}
+	.black{
+		width:29px;
+		height:29px;
+		margin-bottom: 1px;
+		margin-right: 1px;
+		float: left;
+		position: relative;
+		background:#7BBB28;
+	}
+	.she{
+		background: url(img/wds.png);
+		/*position: absolute;*/
+		/*background-position: -5px 0;*/
+	}
+	.shes{
+		background: url(img/wds.png);
+	}
+	.shiwu{
+		/*padding:2px solid block;*/
+		/*box-sizing:border-box;*/
+		background: url(img/ssww.png);
+	}
+	.gongneng{
+		width:200px;
+		height:300px;
+		position:absolute;
+		/*margin:auto;*/
+		left:80px;
+		/*right:0;*/
+		top:20px;
+		bottom:0;
+		padding:30px 30px;
+		box-sizing:border-box;
+		text-align: center;
+		display: none;
+	}
+	.button{
+		padding:10px 50px;
+		margin:20px auto;
+		background: #388328;
+	    color: #fff;
+	    outline: none;
+	    font-family: "华文行楷";
+	    font-weight: bolder;
+	    font-size: 30px;
+	    border-radius: 10px;
+	    border:0;
+	    /*box-shadow: 3px 3px 6px #29611e;*/
+	    outline: none;
+	}
+	.button:hover{
+		color:#26ff66;
+		background:#214E18;
+	}
+	#fh,#fan{
+		background:#388328;
+	}
+	#fh:hover{
+		color:#26ff66;
+		background:#214E18;
+	}
+	.hang{
+		width:140px;
+		height:20px;
+		border:0;
+		border-bottom: 1px solid black;
+		outline: none;
+		text-align: center;
+	}
+	.hang:hover{
+		height:40px;
+		font-size: 20px;
+	}
+	.jiemian{
+		/*width:600px;*/
+		height:600px;
+		/*background:black;*/
+		position:absolute;
+		/*margin:auto;*/
+		left:100px;
+		/*right:0;*/
+		top:-300px;
+		bottom:0;
+		text-align: center;
+		z-index: 30;
+		/*background:url(2.png);*/
+	}
+	.jm{
+		width:200px;
+		height:200px;
+		position:absolute;
+		margin:auto;
+		left:0;
+		right:0;
+		bottom:60px;
+	}
+	.jiemian ul{
+		margin:300px 0 0 0;
+	}
+	.kai{
+		height:50px;
+		cursor: pointer;
+	}
+	.jies{
+		width:600px;
+		height:600px;
+		position:absolute;
+		margin:auto;
+		left:0;
+		right:0;
+		top:30px;
+		bottom:0;
+		/*background:rgba(0,0,0,0.3);*/
+		font-size: 80px;
+		color:black;
+		text-align: center;
+		line-height: 600px;
+		display:none;
+		z-index: 60;
+	}
+	.zhuang{
+		font-family: '华文行楷';
+	}
+	.chong{
+        padding:10px 50px;
+		margin:20px auto;
+		background: #388328;
+	    color: #fff;
+	    outline: none;
+	    font-family: "华文行楷";
+	    font-weight: bolder;
+	    font-size: 30px;
+	    border-radius: 10px;
+	    border:0;
+
+	    /*box-shadow: 3px 3px 6px #29611e;*/
+	    outline: none;
+
+
+	    /*font-family: "微软雅黑";
+	    border-radius: 8px;
+	    outline: none;
+		padding:5px 20px;
+		background: #D93026;
+	    color: #fff;
+	    font-weight: bolder;
+	    font-size:12px;
+	    outline: none;
+	    float:left;*/
+	}
+	.chong:hover{
+		color:#26ff66;
+		background:#214E18;
+	}
+	.fanhui{
+        padding:10px 50px;
+		margin:20px auto;
+		background: #388328;
+	    color: #fff;
+	    outline: none;
+	    font-family: "华文行楷";
+	    font-weight: bolder;
+	    font-size: 30px;
+	    border-radius: 10px;
+	    border:0;
+	    /*box-shadow: 3px 3px 6px #29611e;*/
+	    outline: none;
+
+
+
+		/*padding:5px 20px;
+		background: #D93026;
+	    color: #fff;
+	    font-weight: bolder;
+	    font-family: "微软雅黑";
+	    font-size:12px;
+	    outline: none;
+	    float:right;
+	    border-radius: 8px;*/
+	}
+	.fanhui:hover{
+		color:#26ff66;
+		background:#214E18;
+	}
+	.zt{
+        padding:10px 50px;
+		margin:20px auto;
+		background: #388328;
+	    color: #fff;
+	    outline: none;
+	    font-family: "华文行楷";
+	    font-weight: bolder;
+	    font-size: 30px;
+	    border-radius: 10px;
+	    border:0;
+	    /*box-shadow: 3px 3px 6px #29611e;*/
+	    outline: none;
+
+
+
+
+		/*padding:5px 20px;
+		background: #388328;
+	    color: #fff;
+	    font-weight: bolder;
+	    font-size:12px;
+	    outline: none;
+	    border-radius: 8px;*/
+	}
+	.zt:hover{
+		color:#26ff66;
+		background:#214E18;
+	}
+	.zti{
+		background: #D93026;
+	}
+	.zti:hover{
+		background: #388328;
+	}
+	.kf{
+		position:absolute;
+		margin:auto;
+		left:50px;
+		/*right:0;*/
+		top:40px;
+		height:600px;
+		width:300px;
+		text-align:center;
+		display:none;
+	}
+	.kaichang{
+	z-index:1200; 
+	width: 100%;
+	height: 750px;
+	margin: 5px auto;
+	text-align: center;
+	line-height: 600px;
+	position: relative;
+	overflow: hidden;
+}
+.kaichang h1{
+	width: 100%;
+	height: 100%;
+	font-size:150px;
+	color:#000;
+	font-family: '华文行楷';
+	z-index: 1100;
+	position: absolute;
+	left: 0;
+	top:0;
+	text-align: center;
+	transform:translateY(-100%);
+	transition:transform .8s ease;
+}
+.kaichang .zuo{
+	width: 50%;
+	height: 100%;
+	transform:translateX(-100%);
+	transition:transform .8s ease;
+	position: absolute;
+	top:0;
+	left:0;
+	z-index: 1000;
+	background:url(img/bj1.png);
+	background-size: cover;
+}
+.kaichang .you{
+	width: 50%;
+	height: 100%;
+	transform:translateX(100%);
+	transition:transform .8s ease;
+	position: absolute;
+	top:0;
+	left: 50%;
+	z-index: 1000;
+	background:url(img/bj2.png);
+	background-size: cover;
+}
+.kaichang.animation .zuo,.kaichang.animation .you{
+    transform:translateX(0);
+}
+.kaichang.animation h1{
+	transform:translateY(0);
+}
+</style>
+<body>
+	<audio src="img/1.mp3"></audio>
+	<div class='kaichang'>
+			<h1>贪吃蛇</h1>
+			<div class='zuo'></div>
+			<div class='you'></div>
+	</div>
+	<div class="jiemian">
+		<div class="jm">
+			<input type="button" value="开始游戏" class="button" data-d="kai">
+			<input type="button" value="难度选择" class="button" data-d="xuan">
+			<input type="button" value="退出游戏" class="button" data-d="tui" id="fh">
+		</div>	
+	</div>
+	<div class="sceen"></div>
+	<div class="gongneng">
+		<input type="button" value="普通" class="button" data-row="20">	
+		<input type="button" value="困难" class="button" data-row="30">
+		<input type="button" value="返回" class="button" id="fan">		
+	</div>
+	<div class="jies zhuang">
+		
+	</div>
+	<div class="kf">
+		<input type="button" value="重新开始" class="chong">
+		<input type="button" value="暂停" class="zt">
+		<input type="button" value="返回" class="fanhui">
+	</div>
+	
+</body>
+<script src = "js/jquery-1.12.0.js"></script>
+<script src = "js/tanchishe.js"></script>
+</html>
